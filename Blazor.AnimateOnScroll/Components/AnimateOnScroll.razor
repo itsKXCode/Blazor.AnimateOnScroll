@@ -1,0 +1,10 @@
+﻿<div @ref="_divReference" @attributes=AdditionalAttributes class="@AnimationClass @Class" style="@VisibilityStyle @AnimationStyle @Style">
+    <CascadingValue Name="IsVisible" Value="IsVisible">
+        <CascadingValue Name="AnimationFinished" Value="Animation">
+            @if (ChildContent != null)
+            {
+                @ChildContent(AnimationEnded)
+            }
+        </CascadingValue>
+    </CascadingValue>
+</div>
