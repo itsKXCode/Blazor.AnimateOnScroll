@@ -89,3 +89,8 @@ Just use one of the Pre-Defined Animation Propertys in the Static 'Animations' C
         public static Animation HeadShake => new Animation("headShake");
         ...
     }
+
+## License
+Blazor.AnimateOnScroll is MIT licensed. The library uses the following other libraries:
+
+-   [Animate.css](https://github.com/animate-css/animate.css)
