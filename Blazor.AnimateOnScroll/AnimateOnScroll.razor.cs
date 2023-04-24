@@ -1,8 +1,7 @@
-﻿using Blazor.AnimateOnScroll.Models;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
-namespace Blazor.AnimateOnScroll.Components
+namespace Blazor.AnimateOnScroll
 {
     public partial class AnimateOnScroll
     {

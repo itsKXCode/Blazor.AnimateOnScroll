@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Blazor.AnimateOnScroll.Models
+namespace Blazor.AnimateOnScroll
 {
     public record Animation(string Name);
 
