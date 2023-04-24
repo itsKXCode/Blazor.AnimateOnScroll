@@ -12,7 +12,7 @@ namespace Blazor.AnimateOnScroll
         public RenderFragment<bool>? ChildContent { get; set; }
 
         [Parameter]
-        public EventCallback<bool> VisibilityChanged { get; set; }
+        public EventCallback<bool> OnVisibilityChanged { get; set; }
 
         [Parameter]
         public string Style { get; set; } = string.Empty;
@@ -95,7 +95,7 @@ namespace Blazor.AnimateOnScroll
             IsVisible = true;
             StateHasChanged();
 
-            VisibilityChanged.InvokeAsync(true);
+            OnVisibilityChanged.InvokeAsync(true);
         }
 
         [JSInvokable]
@@ -108,7 +108,7 @@ namespace Blazor.AnimateOnScroll
                 StateHasChanged();
             }
 
-            VisibilityChanged.InvokeAsync(false);
+            OnVisibilityChanged.InvokeAsync(false);
         }
 
         [JSInvokable]
