@@ -7,15 +7,6 @@ document.getElementsByTagName("head")[0].insertAdjacentHTML(
 
 window.addEventListener('scroll', OnScrollCallback);
 
-//Observer for watching for deleted Components
-const observer = new MutationObserver(mutationCallback);
-observer.observe(window.document.documentElement, {
-    childList: true,
-    subtree: true,
-    removeNodes: true
-});
-
-
 const mutationCallback = (mutationList, observer) => {
 
     if (Components.length === 0)
@@ -35,6 +26,14 @@ const mutationCallback = (mutationList, observer) => {
         }
     }
 }
+
+//Observer for watching for deleted Components
+const observer = new MutationObserver(mutationCallback);
+observer.observe(window.document.documentElement, {
+    childList: true,
+    subtree: true,
+    removeNodes: true
+});
 
 function OnScrollCallback() {
 
