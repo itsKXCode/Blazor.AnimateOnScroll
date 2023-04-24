@@ -6,8 +6,8 @@ namespace Blazor.AnimateOnScroll.Components
 {
     public partial class AnimateOnScroll
     {
-        [Inject] 
-        public required IJSRuntime _jsRuntime { get; set; }
+        [Inject]
+        public IJSRuntime _jsRuntime { get; set; } = default!;
 
         [Parameter]
         public RenderFragment<bool>? ChildContent { get; set; }
@@ -43,7 +43,7 @@ namespace Blazor.AnimateOnScroll.Components
         public TimeSpan AnimationDelay { get; set; } = TimeSpan.Zero;
 
         /// <summary>
-        /// The Count, how often the Animation should be played
+        /// The Count, how often the Animation should be played, any negative Number will make it infinite
         /// </summary>
         [Parameter] 
         public int AnimationCount { get; set; } = 1;
@@ -72,8 +72,8 @@ namespace Blazor.AnimateOnScroll.Components
 
         private string AnimationStyle => $@"animation-duration: {AnimationDuration.TotalMilliseconds}ms;
                                             animation-delay: {AnimationDelay.TotalMilliseconds}ms;
-                                            animation-iteration-count: {AnimationCount};";
-        private string AnimationClass => IsVisible ? $"animate__animated animate__{Animation.CssName}" : "";
+                                            animation-iteration-count: {(AnimationCount >= 0 ? AnimationCount : "infinite")};";
+        private string AnimationClass => IsVisible ? $"animate__animated animate__{Animation.Name}" : "";
         private string VisibilityStyle => !IsVisible ? "visibility:hidden;" : "";
 
         private DotNetObjectReference<AnimateOnScroll>? _thisReference;

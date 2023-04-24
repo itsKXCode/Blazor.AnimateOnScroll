@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Blazor.AnimateOnScroll.Models
 {
-    public record Animation(string CssName);
+    public record Animation(string Name);
 
     public static class Animations
     {
