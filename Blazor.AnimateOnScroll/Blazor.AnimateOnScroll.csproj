@@ -2,15 +2,15 @@
 
   <PropertyGroup>
     <TargetFrameworks>net6.0;net7.0</TargetFrameworks>
-	  <PackageVersion>1.0.1</PackageVersion>
+	  <PackageVersion>1.0.2</PackageVersion>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Title>Blazor.AnimateOnScroll</Title>
-    <Authors>KotiX</Authors>
+    <Authors>KXCode</Authors>
     <Description>Animate your Components as you scroll trough your Page</Description>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <RepositoryUrl>https://github.com/KotiiX/Blazor.AnimateOnScroll</RepositoryUrl>
+    <RepositoryUrl>https://github.com/itsKXCode/Blazor.AnimateOnScroll</RepositoryUrl>
     <PackageTags>Blazor;Animation;Animate;AnimateOnScroll;OnScroll;Scroll;</PackageTags>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
   </PropertyGroup>
