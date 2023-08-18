@@ -41,7 +41,7 @@ function OnScrollCallback() {
 
         if (IsElementInView(component.observeElement)) {
             //Element is Visible
-        
+
             if (component.isVisible == false) {
                 component.isVisible = true;
                 component.parentComponent.invokeMethodAsync('InternalOnVisible');
@@ -65,7 +65,7 @@ function IsElementInView(element) {
     const viewTop = window.pageYOffset;
     const offset = GetOffset(element);
 
-    if (offset.top <= viewBottom && offset.top + element.clientHeight > viewTop) {
+    if (offset.top < viewBottom && offset.top + element.clientHeight > viewTop) {
         return true;
     }
 
