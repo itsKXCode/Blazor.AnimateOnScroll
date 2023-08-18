@@ -23,11 +23,15 @@ Use the AnimateOnScroll Component and put the Element to Animate inside it
     <AnimateOnScroll Animation="Animations.SlideInUp">
             <img src="..."/>
     </AnimateOnScroll>
-Now, as your img gets scrolled into View, the Animation will start. Once the img gets scrolled OUT of View, the Animation resets and will be played again, the next time it gets scrolled into View.
+Now, as your img gets scrolled into View, the Animation will start. Once the img gets scrolled BACK OUT of View, the Animation resets and will be played again, the next time it gets scrolled into View.
 
 If you dont want your Animation to be reset, just set the Property
 
-    ResetOnNotVisible="false"
+    Once="true"
+
+Set the Animation that will be played once the Element gets out of view
+
+    OutAnimation="Animations.SlideOutRight"
 
 Set the Duration the Animation will take
 
@@ -40,6 +44,10 @@ Set a Delay to wait before the Animation plays
 Set the Count the Animation will be Played (any negative Value will make it repeat infinitely)
 
     AnimationCount="10"
+
+Set the Trigger Offset (in px)
+
+    Offset="100"
 ### Events
 
 You can get Notified, when the Components Visibility changed

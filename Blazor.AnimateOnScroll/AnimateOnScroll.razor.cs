@@ -30,6 +30,11 @@ namespace Blazor.AnimateOnScroll
         public Animation Animation { get; set; } = Animations.SlideInRight;
 
         /// <summary>
+        /// The Animation to be played when the Element gets scrolled back out of view
+        /// </summary>
+        [Parameter]
+        public Animation OutAnimation { get; set; } = Animations.SlideOutLeft;
+        /// <summary>
         /// The Duration, the Animation should take
         /// </summary>
         [Parameter]
@@ -54,10 +59,16 @@ namespace Blazor.AnimateOnScroll
         public EventCallback OnAnimationEnd { get; set; }
 
         /// <summary>
-        /// If True, the Animation will be reset once it gets out of view and will be played again if it gains visibility again
+        /// Sets the Offset (in px) of the original trigger point
         /// </summary>
         [Parameter]
-        public bool ResetOnNotVisible { get; set; } = true;
+        public int Offset { get; set; }
+
+        /// <summary>
+        /// Indicates if the Animation will be played only on the first time the Element gets Visible (stays visible afterwards)
+        /// </summary>
+        [Parameter]
+        public bool Once { get; set; }
 
         /// <summary>
         /// Indicates if the Component is currently Visible or not
@@ -72,8 +83,12 @@ namespace Blazor.AnimateOnScroll
         private string AnimationStyle => $@"animation-duration: {AnimationDuration.TotalMilliseconds}ms;
                                             animation-delay: {AnimationDelay.TotalMilliseconds}ms;
                                             animation-iteration-count: {(AnimationCount >= 0 ? AnimationCount : "infinite")};";
-        private string AnimationClass => IsVisible ? $"animate__animated animate__{Animation.Name}" : "";
+        private string AnimationClass => IsVisible ? 
+                                            _isOutAnimation ? $"animate__animated animate__{OutAnimation.Name}" : $"animate__animated animate__{Animation.Name}" 
+                                            : "";
         private string VisibilityStyle => !IsVisible ? "visibility:hidden;" : "";
+
+        private bool _isOutAnimation = false;
 
         private DotNetObjectReference<AnimateOnScroll>? _thisReference;
         private ElementReference _divReference;
@@ -85,7 +100,7 @@ namespace Blazor.AnimateOnScroll
             if (firstRender)
             {
                 _thisReference = DotNetObjectReference.Create(this);
-                await _jsRuntime.InvokeVoidAsync("AnimateOnScroll.Register", _thisReference, _divReference).ConfigureAwait(false);
+                await _jsRuntime.InvokeVoidAsync("AnimateOnScroll.Register", _thisReference, _divReference, Offset).ConfigureAwait(false);
             }
         }
 
@@ -93,6 +108,7 @@ namespace Blazor.AnimateOnScroll
         public void InternalOnVisible()
         {
             IsVisible = true;
+            _isOutAnimation = false;
             StateHasChanged();
 
             OnVisibilityChanged.InvokeAsync(true);
@@ -101,10 +117,10 @@ namespace Blazor.AnimateOnScroll
         [JSInvokable]
         public void InternalOnNotVisible()
         {
-            if (ResetOnNotVisible)
+            if (!Once)
             {
                 AnimationEnded = true;
-                IsVisible = false;
+                _isOutAnimation = true;
                 StateHasChanged();
             }
 
@@ -114,7 +130,11 @@ namespace Blazor.AnimateOnScroll
         [JSInvokable]
         public void InternalOnAnimationEnd()
         {
+            if (_isOutAnimation)
+                IsVisible = false;
+
             AnimationEnded = true;
+            StateHasChanged();
             OnAnimationEnd.InvokeAsync();
         }
     }

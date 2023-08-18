@@ -39,7 +39,7 @@ function OnScrollCallback() {
 
     Components.forEach((component, index) => {
 
-        if (IsElementInView(component.observeElement)) {
+        if (IsElementInView(component.observeElement, component.offset)) {
             //Element is Visible
 
             if (component.isVisible == false) {
@@ -59,13 +59,13 @@ function OnScrollCallback() {
     });
 }
 
-function IsElementInView(element) {
+function IsElementInView(element, triggerOffset) {
 
     const viewBottom = window.innerHeight + window.pageYOffset;
     const viewTop = window.pageYOffset;
     const offset = GetOffset(element);
 
-    if (offset.top < viewBottom && offset.top + element.clientHeight > viewTop) {
+    if (offset.top + triggerOffset < viewBottom) {
         return true;
     }
 
@@ -91,7 +91,7 @@ function GetOffset(element) {
 
 window.AnimateOnScroll = {
 
-    Register: function (instance, divReference) {
+    Register: function (instance, divReference, pOffset) {
 
         //Listen to animationend event to notify the Blazor Component
         divReference.addEventListener('animationend', function (e) {
@@ -101,6 +101,7 @@ window.AnimateOnScroll = {
         Components.push({
             parentComponent: instance,
             observeElement: divReference,
+            offset: pOffset,
             isVisible: false
         });
     },
